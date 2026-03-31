@@ -1,8 +1,17 @@
 :root {
     --bg-dark: #0a0a0c;
+    --bg-soft: #111217;
     --primary-color: #00d2ff;
+    --text-soft: #a1a1aa;
     --glass-bg: rgba(255, 255, 255, 0.03);
-    --glass-border: rgba(255, 255, 255, 0.1);
+    --glass-border: rgba(255, 255, 255, 0.08);
+    --shadow: 0 20px 40px rgba(0, 210, 255, 0.08);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 body {
@@ -10,8 +19,7 @@ body {
     color: #ffffff;
     font-family: 'Inter', sans-serif;
     overflow-x: hidden;
-    padding-bottom: 100px;
-    /* Jarak agar tidak tertutup widget musik */
+    padding-bottom: 60px;
 }
 
 #particles-js {
@@ -22,29 +30,28 @@ body {
     top: 0;
 }
 
-/* NAVBAR KANAN KIRI */
-.navbar {
+/* NAVBAR */
+.navbar-custom {
     position: fixed;
     top: 0;
     width: 100%;
     z-index: 1000;
-    background: rgba(10, 10, 12, 0.9);
-    backdrop-filter: blur(15px);
-    padding: 20px 0;
+    background: rgba(10, 10, 12, 0.82);
+    backdrop-filter: blur(18px);
     border-bottom: 1px solid var(--glass-border);
+    padding: 18px 0;
 }
 
 .nav-container-custom {
     display: flex;
     justify-content: space-between;
-    /* Logo kiri, Menu kanan */
     align-items: center;
     width: 100%;
     padding: 0 5%;
 }
 
 .nav-logo {
-    font-size: 1.6rem;
+    font-size: 1.55rem;
     font-weight: 800;
     white-space: nowrap;
 }
@@ -55,18 +62,18 @@ body {
 
 .nav-links {
     display: flex;
-    gap: 40px;
+    gap: 34px;
     list-style: none;
+    align-items: center;
     margin: 0;
     padding: 0;
-    align-items: center;
 }
 
 .nav-links a {
-    color: #aaa;
+    color: #b6b6b6;
     text-decoration: none;
-    font-size: 1rem;
-    transition: 0.3s;
+    font-size: 0.98rem;
+    transition: 0.3s ease;
 }
 
 .nav-links a:hover {
@@ -76,23 +83,29 @@ body {
 .nav-btn {
     background: var(--primary-color);
     color: #000 !important;
-    padding: 10px 25px !important;
-    border-radius: 50px;
+    padding: 10px 22px !important;
+    border-radius: 999px;
     font-weight: 700;
 }
 
-/* CARDS & CONTENT */
+/* CARD GLOBAL */
 .glass-card {
     background: var(--glass-bg);
     backdrop-filter: blur(20px);
     border: 1px solid var(--glass-border);
     border-radius: 28px;
-    padding: 40px;
+    padding: 34px;
+    box-shadow: var(--shadow);
+}
+
+.profile-card {
+    position: sticky;
+    top: 110px;
 }
 
 .profile-img-container {
-    width: 200px;
-    height: 200px;
+    width: 180px;
+    height: 180px;
     margin: 0 auto;
     position: relative;
 }
@@ -109,22 +122,59 @@ body {
 .status-dot {
     position: absolute;
     bottom: 12px;
-    right: 18px;
-    width: 20px;
-    height: 20px;
+    right: 16px;
+    width: 18px;
+    height: 18px;
     background: #2ecc71;
     border: 4px solid #0a0a0c;
     border-radius: 50%;
+}
+
+.role-text {
+    color: var(--primary-color);
+    font-weight: 600;
+    margin-top: 8px;
+}
+
+.bio {
+    line-height: 1.8;
+}
+
+.social-links {
+    display: flex;
+    justify-content: center;
+    gap: 14px;
+}
+
+.social-links a {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--primary-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    transition: 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.social-links a:hover {
+    transform: translateY(-4px);
+    background: var(--primary-color);
+    color: #000;
 }
 
 .btn-custom {
     border: 1px solid var(--primary-color);
     color: var(--primary-color);
     padding: 12px;
-    border-radius: 12px;
+    border-radius: 14px;
     transition: 0.3s;
     font-weight: 600;
     text-decoration: none;
+    display: inline-block;
 }
 
 .btn-custom:hover {
@@ -132,19 +182,69 @@ body {
     color: #000;
 }
 
-/* CONTAINER MUSIK MELEBAR */
+/* TYPO */
+.hero-title {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 800;
+    line-height: 1.2;
+}
+
+.text-gradient {
+    color: var(--primary-color);
+}
+
+.section-title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #fff;
+}
+
+.typing-text {
+    font-size: 1.5rem;
+    color: #fff;
+    margin-top: 12px;
+}
+
+#typed {
+    color: var(--primary-color);
+    font-weight: 700;
+}
+
+.badge-welcome {
+    background: rgba(0, 210, 255, 0.08);
+    color: var(--primary-color);
+    padding: 8px 16px;
+    border-radius: 999px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    display: inline-block;
+    border: 1px solid rgba(0, 210, 255, 0.15);
+}
+
+/* STATS */
+.home-stats .stat-item {
+    border-left: 2px solid var(--glass-border);
+    padding-left: 15px;
+    min-width: 110px;
+}
+
+.home-stats .stat-item span {
+    font-size: 1.15rem;
+    display: block;
+}
+
+/* MUSIC */
 .music-wide-container {
     background: rgba(255, 255, 255, 0.02);
     border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 20px;
     padding: 15px;
     width: 100%;
-    /* Membuatnya melebar penuh sesuai kolom Home */
     transition: 0.3s;
 }
 
 .music-wide-container:hover {
-    background: rgba(255, 255, 255, 0.05);
+    background: rgba(255, 255, 255, 0.04);
     border-color: var(--primary-color);
 }
 
@@ -157,41 +257,16 @@ body {
 
 .music-header-inline small {
     color: #888;
-    font-size: 0.65rem;
+    font-size: 0.68rem;
     text-transform: uppercase;
     letter-spacing: 1.5px;
 }
 
-/* Titik Live tetap ada biar keren */
 .live-dot {
     width: 8px;
     height: 8px;
     background-color: #ff4b2b;
     border-radius: 50%;
-    animation: pulse-red 1.5s infinite;
-}
-
-@keyframes pulse-red {
-    0% {
-        box-shadow: 0 0 0 0 rgba(255, 75, 43, 0.7);
-    }
-
-    70% {
-        box-shadow: 0 0 0 10px rgba(255, 75, 43, 0);
-    }
-
-    100% {
-        box-shadow: 0 0 0 0 rgba(255, 75, 43, 0);
-    }
-}
-
-/* Animasi Titik Merah (Live) */
-.live-dot {
-    width: 6px;
-    height: 6px;
-    background-color: #ff4b2b;
-    border-radius: 50%;
-    box-shadow: 0 0 8px #ff4b2b;
     animation: pulse-red 1.5s infinite;
 }
 
@@ -212,22 +287,7 @@ body {
     }
 }
 
-/* Hover Effect: Widget sedikit naik saat didekati */
-.music-widget-wrapper:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 20px 40px rgba(0, 210, 255, 0.1);
-}
-
-/* Responsif Mobile */
-@media (max-width: 768px) {
-    .music-widget-wrapper {
-        width: calc(100% - 40px);
-        right: 20px;
-        bottom: 20px;
-    }
-}
-
-/* SPA LOGIC */
+/* SECTION */
 .content-section {
     display: none;
 }
@@ -240,7 +300,7 @@ body {
 @keyframes fadeIn {
     from {
         opacity: 0;
-        transform: translateY(10px);
+        transform: translateY(12px);
     }
 
     to {
@@ -249,48 +309,14 @@ body {
     }
 }
 
-/* MOBILE RESPONSIVE */
-#check {
-    display: none;
+/* MINI CARD */
+.mini-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    padding: 22px;
 }
 
-.icons {
-    display: none;
-    color: #fff;
-    font-size: 2rem;
-    cursor: pointer;
-}
-
-@media (max-width: 992px) {
-    .icons {
-        display: block;
-    }
-
-    .nav-links {
-        position: fixed;
-        top: 85px;
-        left: -100%;
-        width: 100%;
-        height: 100vh;
-        background: #0a0a0c;
-        flex-direction: column;
-        padding-top: 50px;
-        transition: 0.4s;
-        gap: 30px;
-    }
-
-    #check:checked~.nav-links {
-        left: 0;
-    }
-
-    .music-widget {
-        width: 280px;
-        bottom: 10px;
-        right: 10px;
-    }
-}
-
-/* STYLE UNTUK SKILL TAGS DI ABOUT */
 .skill-tags {
     display: flex;
     flex-wrap: wrap;
@@ -301,9 +327,9 @@ body {
     background: rgba(0, 210, 255, 0.1);
     color: var(--primary-color);
     border: 1px solid rgba(0, 210, 255, 0.3);
-    padding: 5px 15px;
-    border-radius: 8px;
-    font-size: 0.85rem;
+    padding: 7px 15px;
+    border-radius: 999px;
+    font-size: 0.84rem;
     font-weight: 500;
     transition: 0.3s;
 }
@@ -315,60 +341,209 @@ body {
 }
 
 .org-item {
-    background: rgba(255, 255, 255, 0.05);
-    padding: 15px;
-    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.04);
+    padding: 16px;
+    border-radius: 14px;
     border-left: 3px solid var(--primary-color);
 }
 
-.contact-info-list .info-item i {
-    width: 20px;
-    text-align: center;
+/* PROJECT */
+.project-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--glass-border);
+    border-radius: 22px;
+    overflow: hidden;
+    transition: 0.3s ease;
+    height: 100%;
 }
 
-.badge-welcome {
-    background: rgba(0, 210, 255, 0.1);
-    color: var(--primary-color);
-    padding: 8px 16px;
-    border-radius: 50px;
-    font-size: 0.8rem;
-    font-weight: 600;
+.project-card:hover {
+    transform: translateY(-6px);
+    border-color: rgba(0, 210, 255, 0.25);
+    box-shadow: 0 20px 40px rgba(0, 210, 255, 0.08);
+}
+
+.project-img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+}
+
+.project-body {
+    padding: 22px;
+}
+
+.project-badge {
     display: inline-block;
+    background: rgba(0, 210, 255, 0.08);
+    color: var(--primary-color);
+    padding: 6px 12px;
+    border-radius: 999px;
+    font-size: 0.76rem;
     border: 1px solid rgba(0, 210, 255, 0.2);
 }
 
-.typing-text {
-    font-size: 1.8rem;
-    color: #fff;
+.project-tech {
+    color: var(--primary-color);
+    font-size: 0.85rem;
+    font-weight: 600;
     margin-top: 10px;
 }
 
-#typed {
+/* CONTACT */
+.contact-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    padding: 24px 18px;
+    text-align: center;
+    transition: 0.3s ease;
+    height: 100%;
+}
+
+.contact-card:hover {
+    transform: translateY(-5px);
+    border-color: rgba(0, 210, 255, 0.25);
+}
+
+.contact-card i {
+    font-size: 1.5rem;
     color: var(--primary-color);
+    margin-bottom: 12px;
+}
+
+.contact-card h6 {
     font-weight: 700;
+    margin-bottom: 8px;
 }
 
-.home-stats .stat-item {
-    border-left: 2px solid var(--glass-border);
-    padding-left: 15px;
+.contact-card p {
+    color: var(--text-soft);
+    font-size: 0.92rem;
+    margin: 0;
+    word-break: break-word;
 }
 
-.home-stats .stat-item span {
-    font-size: 1.2rem;
-    display: block;
+/* MOBILE NAV */
+#check {
+    display: none;
 }
 
-/* Animasi Floating untuk Ikon (Opsional kalau mau nambah ikon di background) */
-@keyframes float {
-    0% {
-        transform: translateY(0px);
+.icons {
+    display: none;
+    color: #fff;
+    font-size: 2rem;
+    cursor: pointer;
+}
+
+#close-icon {
+    display: none;
+}
+
+#check:checked + .icons #menu-icon {
+    display: none;
+}
+
+#check:checked + .icons #close-icon {
+    display: inline;
+}
+
+/* RESPONSIVE */
+@media (max-width: 992px) {
+    .icons {
+        display: block;
     }
 
-    50% {
-        transform: translateY(-15px);
+    .nav-links {
+        position: fixed;
+        top: 82px;
+        left: -100%;
+        width: 100%;
+        height: calc(100vh - 82px);
+        background: rgba(10, 10, 12, 0.98);
+        backdrop-filter: blur(18px);
+        flex-direction: column;
+        justify-content: flex-start;
+        padding-top: 50px;
+        transition: 0.35s ease;
+        gap: 30px;
     }
 
-    100% {
-        transform: translateY(0px);
+    #check:checked ~ .nav-links {
+        left: 0;
+    }
+
+    .profile-card {
+        position: static;
+    }
+
+    .glass-card {
+        padding: 28px;
+    }
+
+    .hero-title {
+        font-size: 2.4rem;
+    }
+}
+
+@media (max-width: 768px) {
+    body {
+        padding-bottom: 40px;
+    }
+
+    .nav-container-custom {
+        padding: 0 6%;
+    }
+
+    .glass-card {
+        padding: 24px 20px;
+        border-radius: 24px;
+    }
+
+    .profile-img-container {
+        width: 150px;
+        height: 150px;
+    }
+
+    .typing-text {
+        font-size: 1.2rem;
+    }
+
+    .section-title {
+        font-size: 1.5rem;
+    }
+
+    .project-img {
+        height: 200px;
+    }
+
+    .home-stats {
+        gap: 18px !important;
+    }
+
+    .home-stats .stat-item {
+        min-width: unset;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-title {
+        font-size: 2rem;
+    }
+
+    .nav-logo {
+        font-size: 1.3rem;
+    }
+
+    .btn-custom {
+        font-size: 0.95rem;
+    }
+
+    .music-wide-container iframe {
+        height: 152px;
+    }
+
+    .contact-card {
+        padding: 20px 14px;
     }
 }

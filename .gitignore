@@ -1,0 +1,13 @@
+# Folder upload gambar project
+uploads/
+
+# File sementara
+*.log
+*.tmp
+
+# File sistem
+.DS_Store
+Thumbs.db
+
+# Cache / editor
+.vscode/
