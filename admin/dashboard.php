@@ -246,7 +246,7 @@ $totalProject = mysqli_num_rows(mysqli_query($conn, "SELECT * FROM project"));
 
                 <div class="menu-title">Menu Utama</div>
                 <a href="dashboard.php" class="active"><i class="fas fa-house"></i> Dashboard</a>
-                <a href="#"><i class="fas fa-folder-open"></i> Kelola Project</a>
+                <a href="project.php"><i class="fas fa-folder-open"></i> Kelola Project</a>
                 <a href="#"><i class="fas fa-user-pen"></i> Edit Profil</a>
                 <a href="../index.php" target="_blank"><i class="fas fa-globe"></i> Lihat Website</a>
 
@@ -308,7 +308,7 @@ $totalProject = mysqli_num_rows(mysqli_query($conn, "SELECT * FROM project"));
 
                     <div class="row g-3">
                         <div class="col-md-4">
-                            <a href="#" class="quick-btn"><i class="fas fa-plus"></i> Tambah Project</a>
+                            <a href="tambah_project.php" class="quick-btn"><i class="fas fa-plus"></i> Tambah Project</a>
                         </div>
                         <div class="col-md-4">
                             <a href="#" class="quick-btn"><i class="fas fa-user-edit"></i> Edit Profil</a>

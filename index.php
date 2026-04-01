@@ -105,7 +105,7 @@ $projects = [
 
                             <div class="home-stats mt-4 d-flex flex-wrap gap-4">
                                 <div class="stat-item">
-                                    <span class="fw-bold text-primary">10+</span>
+                                    <span class="fw-bold text-primary">1+</span>
                                     <p class="small text-secondary">Projects Done</p>
                                 </div>
                                 <div class="stat-item">
@@ -191,7 +191,7 @@ $projects = [
                             <?php foreach ($projects as $project): ?>
                                 <div class="col-md-6">
                                     <div class="project-card h-100">
-                                        <img src="<?php echo $project['gambar']; ?>" class="project-img" alt="<?php echo $project['judul']; ?>">
+                                        <img src="uploads/<?php echo $project['gambar']; ?>" class="project-img" alt="<?php echo $project['judul']; ?>">
                                         <div class="project-body">
                                             <span class="project-badge">Featured</span>
                                             <h4 class="mt-3"><?php echo $project['judul']; ?></h4>
