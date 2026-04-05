@@ -7,28 +7,48 @@ if (!isset($_SESSION['admin'])) {
     exit;
 }
 
+if (!isset($_GET['id']) || empty($_GET['id'])) {
+    header("Location: dashboard.php");
+    exit;
+}
+
+$id = (int) $_GET['id'];
+$query = mysqli_query($conn, "SELECT * FROM projects WHERE id = $id");
+$data = mysqli_fetch_assoc($query);
+
+if (!$data) {
+    header("Location: dashboard.php");
+    exit;
+}
+
 if (isset($_POST['submit'])) {
     $judul = mysqli_real_escape_string($conn, $_POST['judul']);
     $deskripsi = mysqli_real_escape_string($conn, $_POST['deskripsi']);
     $teknologi = mysqli_real_escape_string($conn, $_POST['teknologi']);
 
-    $gambar = $_FILES['gambar']['name'];
+    $gambarBaru = $_FILES['gambar']['name'];
     $tmp = $_FILES['gambar']['tmp_name'];
 
-    if (!empty($gambar)) {
-        move_uploaded_file($tmp, "../uploads/" . $gambar);
-
-        $insert = mysqli_query($conn, "INSERT INTO projects (judul, deskripsi, gambar, teknologi)
-            VALUES ('$judul', '$deskripsi', '$gambar', '$teknologi')");
-
-        if ($insert) {
-            echo "<script>alert('Project berhasil ditambahkan!'); window.location='dashboard.php';</script>";
-            exit;
-        } else {
-            $error = "Gagal menambahkan project.";
-        }
+    if (!empty($gambarBaru)) {
+        move_uploaded_file($tmp, "../uploads/" . $gambarBaru);
+        $gambarUpdate = $gambarBaru;
     } else {
-        $error = "Gambar project wajib diupload.";
+        $gambarUpdate = $data['gambar'];
+    }
+
+    $update = mysqli_query($conn, "UPDATE projects SET
+        judul = '$judul',
+        deskripsi = '$deskripsi',
+        gambar = '$gambarUpdate',
+        teknologi = '$teknologi'
+        WHERE id = $id
+    ");
+
+    if ($update) {
+        echo "<script>alert('Project berhasil diupdate!'); window.location='dashboard.php';</script>";
+        exit;
+    } else {
+        $error = "Gagal mengupdate project.";
     }
 }
 ?>
@@ -38,7 +58,7 @@ if (isset($_POST['submit'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tambah Project - Frynn Admin</title>
+    <title>Edit Project - Frynn Admin</title>
     <link rel="stylesheet" href="admin.css">
 </head>
 
@@ -55,7 +75,7 @@ if (isset($_POST['submit'])) {
 
             <nav class="sidebar-menu">
                 <a href="dashboard.php">Dashboard</a>
-                <a href="tambah_project.php" class="active">Tambah Project</a>
+                <a href="tambah_project.php">Tambah Project</a>
                 <a href="../index.php" target="_blank">Lihat Website</a>
                 <a href="../logout.php" class="logout-link">Logout</a>
             </nav>
@@ -66,47 +86,52 @@ if (isset($_POST['submit'])) {
 
             <header class="topbar">
                 <div>
-                    <h1>Tambah Project</h1>
-                    <p>Masukkan project baru agar tampil di halaman portfolio utama.</p>
+                    <h1>Edit Project</h1>
+                    <p>Perbarui informasi project agar portfolio kamu tetap rapi dan up to date.</p>
                 </div>
                 <a href="dashboard.php" class="topbar-btn">← Kembali Dashboard</a>
             </header>
 
             <section class="form-section">
                 <div class="form-header">
-                    <h2>Form Project Baru</h2>
-                    <p>Isi data project dengan lengkap dan rapi.</p>
+                    <h2>Form Edit Project</h2>
+                    <p>Ubah data project sesuai kebutuhan.</p>
                 </div>
 
                 <?php if (!empty($error)): ?>
                     <div class="alert-error"><?php echo $error; ?></div>
                 <?php endif; ?>
 
+                <div class="current-image-box">
+                    <p class="current-image-label">Gambar Saat Ini</p>
+                    <img src="../img/<?php echo htmlspecialchars($data['gambar']); ?>" alt="<?php echo htmlspecialchars($data['judul']); ?>" class="current-project-image">
+                </div>
+
                 <form action="" method="POST" enctype="multipart/form-data" class="project-form">
                     <div class="form-group">
                         <label for="judul">Judul Project</label>
-                        <input type="text" name="judul" id="judul" placeholder="Contoh: Portfolio Website Frynn" required>
+                        <input type="text" name="judul" id="judul" value="<?php echo htmlspecialchars($data['judul']); ?>" required>
                     </div>
 
                     <div class="form-group">
                         <label for="deskripsi">Deskripsi</label>
-                        <textarea name="deskripsi" id="deskripsi" rows="6" placeholder="Jelaskan project kamu secara singkat, jelas, dan menarik..." required></textarea>
+                        <textarea name="deskripsi" id="deskripsi" rows="6" required><?php echo htmlspecialchars($data['deskripsi']); ?></textarea>
                     </div>
 
                     <div class="form-group">
                         <label for="teknologi">Teknologi</label>
-                        <input type="text" name="teknologi" id="teknologi" placeholder="Contoh: HTML, CSS, PHP, MySQL" required>
-                        <small>Pisahkan dengan koma untuk beberapa teknologi.</small>
+                        <input type="text" name="teknologi" id="teknologi" value="<?php echo htmlspecialchars($data['teknologi']); ?>" required>
+                        <small>Pisahkan beberapa teknologi dengan koma.</small>
                     </div>
 
                     <div class="form-group">
-                        <label for="gambar">Upload Gambar</label>
-                        <input type="file" name="gambar" id="gambar" accept="image/*" required>
-                        <small>Gunakan gambar yang jelas agar project terlihat lebih profesional.</small>
+                        <label for="gambar">Ganti Gambar (Opsional)</label>
+                        <input type="file" name="gambar" id="gambar" accept="image/*">
+                        <small>Kosongkan jika tidak ingin mengganti gambar project.</small>
                     </div>
 
                     <div class="form-actions">
-                        <button type="submit" name="submit" class="submit-btn">+ Simpan Project</button>
+                        <button type="submit" name="submit" class="submit-btn">💾 Update Project</button>
                         <a href="dashboard.php" class="cancel-btn">Batal</a>
                     </div>
                 </form>

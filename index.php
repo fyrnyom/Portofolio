@@ -1,302 +1,287 @@
 <?php
-$nama = "Arfan Achmad A";
-$role = "Jika itu membuatku senang, aku senang melakukannya";
-$deskripsi_singkat = "Saya siswa SMKN 1 BANGSRI yang antusias dengan teknologi backend. Fokus pada pembuatan kode yang bersih, efisien, dan solusi digital yang inovatif.";
-$email = "arf79616@gmail.com";
-$phone = "+62 8xx-xxxx-xxxx";
-$alamat = "Jepara, Jawa Tengah, Indonesia";
+include 'koneksi.php';
 
-// Data Project
-$projects = [
-    [
-        "judul" => "Quizzku",
-        "deskripsi" => "Aplikasi kuis interaktif untuk mengukur kecepatan berpikir dengan 10 soal dan batas waktu 15 detik per soal.",
-        "gambar" => "project.png",
-        "teknologi" => "PHP • HTML • CSS • JavaScript"
-    ],
-    [
-        "judul" => "Portofolio Pribadi",
-        "deskripsi" => "Website portofolio personal bertema dark modern untuk menampilkan profil, keahlian, dan project.",
-        "gambar" => "project.png",
-        "teknologi" => "PHP • Bootstrap • CSS"
-    ]
-];
+$query = mysqli_query($conn, "SELECT * FROM projects ORDER BY id DESC");
 ?>
-
 <!DOCTYPE html>
 <html lang="id">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php echo $nama; ?> | Portofolio</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <title>Portfolio Arfan</title>
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-    <div id="particles-js"></div>
 
-    <nav class="navbar-custom">
-        <div class="nav-container-custom">
-            <div class="nav-logo">Arfan.<span>Dev</span></div>
+    <!-- =========================
+         NAVBAR
+    ========================= -->
+    <header class="site-header">
+        <div class="container navbar">
+            <a href="#home" class="logo">Arfan<span>.Dev</span></a>
 
-            <input type="checkbox" id="check">
-            <label for="check" class="icons">
-                <span id="menu-icon">☰</span>
-                <span id="close-icon">✕</span>
-            </label>
+            <button class="menu-toggle" id="menuToggle">&#9776;</button>
 
-            <ul class="nav-links">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#contact" class="nav-btn">Hubungi Saya</a></li>
-            </ul>
+            <nav id="mobileNav">
+                <ul class="nav-links">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">Tentang</a></li>
+                    <li><a href="#projects">Project</a></li>
+                    <li><a href="#contact">Kontak</a></li>
+                    <li><a href="login.php" class="admin-link">Admin</a></li>
+                </ul>
+            </nav>
         </div>
-    </nav>
+    </header>
 
-    <main class="container py-5 mt-5">
-        <div class="row g-4 align-items-stretch">
+    <main class="main-content">
 
-            <!-- PROFILE CARD -->
-            <div class="col-lg-4" data-aos="fade-right">
-                <div class="glass-card profile-card text-center h-100">
-                    <div class="profile-img-container">
-                        <img src="maharaja.jpeg" alt="Foto Profil" class="profile-img">
-                        <div class="status-dot"></div>
+        <!-- =========================
+             HERO SECTION
+        ========================= -->
+        <section class="hero-section reveal" id="home">
+            <div class="container hero-container">
+                <div class="hero-left">
+                    <span class="hero-badge">Creative Portfolio</span>
+                    <h1 class="hero-title">
+                        Halo, Aku <span>Arfan</span>
+                    </h1>
+                    <p class="hero-role">Pelajar • Designer • Creative Developer</p>
+                    <p class="hero-desc">
+                        Aku membangun project digital yang menggabungkan kreativitas, visual yang rapi,
+                        dan proses belajar yang terus berkembang. Portfolio ini menjadi tempat untuk
+                        menampilkan karya, eksperimen, dan perjalanan skill-ku di dunia digital.
+                    </p>
+
+                    <div class="hero-buttons">
+                        <a href="#projects" class="hero-btn primary-hero-btn">Lihat Project</a>
+                        <a href="#contact" class="hero-btn secondary-hero-btn">Hubungi Aku</a>
+                        <a href="cv/cv-frynn.pdf" class="hero-btn cv-btn" download>Download CV</a>
                     </div>
-
-                    <h2 class="mt-4"><?php echo $nama; ?></h2>
-                    <p class="role-text"><?php echo $role; ?></p>
-                    <hr class="border-secondary my-4">
-                    <p class="bio text-secondary"><?php echo $deskripsi_singkat; ?></p>
-
-                    <div class="social-links mt-4">
-                        <a href="#"><i class="fab fa-github"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                    <div class="hero-mini-stats">
+                        <div class="hero-stat">
+                            <h3>Creative</h3>
+                            <p>Visual & Design</p>
+                        </div>
+                        <div class="hero-stat">
+                            <h3>Web</h3>
+                            <p>HTML • CSS • PHP</p>
+                        </div>
+                        <div class="hero-stat">
+                            <h3>Growth</h3>
+                            <p>Belajar & Berkembang</p>
+                        </div>
                     </div>
+                </div>
 
-                    <div class="mt-4">
-                        <a href="cv-arfan.pdf" download class="btn-custom w-100">
-                            <i class="fas fa-download me-2"></i> Download CV
-                        </a>
+                <div class="hero-right">
+                    <div class="hero-card">
+                        <div class="hero-glow"></div>
+                        <img src="uploads/profil.jpg" alt="Profile Arfan" class="hero-image">
+                        <div class="hero-card-content">
+                            <h3>Creative Mindset</h3>
+                            <p>
+                                Fokus pada pengembangan karya visual, website, dan ide kreatif
+                                yang bisa berkembang menjadi project nyata dan profesional.
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>
+        </section>
 
-            <!-- MAIN CONTENT -->
-            <div class="col-lg-8">
-                <!-- HOME -->
-                <section id="home" class="content-section active">
-                    <div class="glass-card h-100 d-flex flex-column" data-aos="zoom-in">
-                        <div class="home-content flex-grow-1">
-                            <span class="badge-welcome mb-3">🚀 Welcome to my Digital Space</span>
-                            <h1 class="hero-title">Halo, Saya <span class="text-gradient">Arfan</span></h1>
-                            <h3 class="typing-text">I am a <span id="typed"></span></h3>
+        <!-- =========================
+             ABOUT SECTION
+        ========================= -->
+        <section class="about-section reveal" id="about">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-badge">Tentang Aku</span>
+                    <h2 class="section-title">Sedikit Tentang Aku</h2>
+                    <p class="section-subtitle">
+                        Aku suka membuat sesuatu yang kreatif, visual, dan menarik.
+                        Mulai dari desain, coding sederhana, sampai project digital yang bisa berkembang lebih jauh.
+                    </p>
+                </div>
 
-                            <p class="lead text-secondary mt-3">
-                                Mengubah baris kode menjadi solusi digital yang elegan. Berfokus pada arsitektur
-                                <strong>Frontend</strong> dan pengalaman <strong>UI/UX</strong> yang modern.
-                            </p>
-
-                            <div class="home-stats mt-4 d-flex flex-wrap gap-4">
-                                <div class="stat-item">
-                                    <span class="fw-bold text-primary">1+</span>
-                                    <p class="small text-secondary">Projects Done</p>
-                                </div>
-                                <div class="stat-item">
-                                    <span class="fw-bold text-primary">Learning</span>
-                                    <p class="small text-secondary">Laravel 11</p>
-                                </div>
-                                <div class="stat-item">
-                                    <span class="fw-bold text-primary">Creative</span>
-                                    <p class="small text-secondary">UI Builder</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="music-wide-container mt-5">
-                            <div class="music-header-inline">
-                                <span class="live-dot"></span>
-                                <small>Now Playing on Spotify</small>
-                            </div>
-                            <iframe style="border-radius:12px"
-                                src="https://open.spotify.com/embed/track/1fDFHXcykq4iw8Gg7s5hG9?utm_source=generator"
-                                width="100%" height="152" frameBorder="0"
-                                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-                                loading="lazy"></iframe>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- ABOUT -->
-                <section id="about" class="content-section">
-                    <div class="glass-card h-100" data-aos="fade-up">
-                        <h3 class="section-title mb-4">Tentang Saya</h3>
-                        <p class="text-secondary">
-                            Saya adalah siswa SMKN 1 BANGSRI yang memiliki gairah tinggi dalam pengembangan web,
-                            khususnya di sisi Frontend. Saya senang membuat pengalaman pengguna yang menarik dan intuitif.
+                <div class="about-grid">
+                    <div class="about-card large-card">
+                        <h3>Siapa Aku?</h3>
+                        <p>
+                            Aku adalah seorang pelajar yang tertarik di dunia desain, teknologi,
+                            dan pengembangan karya digital. Aku suka membangun sesuatu dari ide sederhana
+                            menjadi hasil visual yang lebih rapi, menarik, dan punya nilai presentasi yang kuat.
                         </p>
+                    </div>
 
-                        <div class="row mt-4 g-4">
-                            <div class="col-md-6">
-                                <div class="mini-card h-100">
-                                    <h5 class="mb-3"><i class="fas fa-code text-primary me-2"></i> Keahlian Dasar</h5>
-                                    <div class="skill-tags">
-                                        <span>PHP</span>
-                                        <span>Laravel</span>
-                                        <span>MySQL</span>
-                                        <span>HTML & CSS</span>
-                                        <span>UI/UX Design</span>
-                                    </div>
-                                </div>
-                            </div>
+                    <div class="about-card">
+                        <h3>Skill</h3>
+                        <ul class="about-list">
+                            <li>UI / Visual Design</li>
+                            <li>HTML, CSS, PHP Dasar</li>
+                            <li>Creative Thinking</li>
+                            <li>Editing & Branding Visual</li>
+                        </ul>
+                    </div>
 
-                            <div class="col-md-6">
-                                <div class="mini-card h-100">
-                                    <h5 class="mb-3"><i class="fas fa-users text-primary me-2"></i> Organisasi</h5>
-                                    <div class="org-item">
-                                        <p class="mb-1 fw-bold">Webdev Taksan Nawasena</p>
-                                        <small class="text-secondary">Anggota aktif dengan fokus pada logika web dan struktur database.</small>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="mini-card mt-4">
-                            <h5 class="mb-3"><i class="fas fa-laptop-code text-primary me-2"></i> Fokus Saat Ini</h5>
-                            <p class="small text-secondary mb-0">
-                                Saat ini saya sedang mendalami framework Laravel untuk membangun aplikasi yang lebih scalable,
-                                aman, dan nyaman digunakan.
-                            </p>
+                    <div class="about-card">
+                        <h3>Fokus Saat Ini</h3>
+                        <div class="about-tags">
+                            <span>Portfolio Website</span>
+                            <span>Creative Branding</span>
+                            <span>Frontend Practice</span>
+                            <span>Visual Project</span>
+                            <span>Digital Creation</span>
                         </div>
                     </div>
-                </section>
-
-                <!-- PROJECTS -->
-                <section id="projects" class="content-section">
-                    <div class="glass-card h-100" data-aos="fade-up">
-                        <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-4">
-                            <div>
-                                <h3 class="section-title mb-1">Project Saya</h3>
-                                <p class="text-secondary small mb-0">Beberapa project yang pernah saya kerjakan.</p>
-                            </div>
-                        </div>
-
-                        <div class="row g-4">
-                            <?php foreach ($projects as $project): ?>
-                                <div class="col-md-6">
-                                    <div class="project-card h-100">
-                                        <img src="uploads/<?php echo $project['gambar']; ?>" class="project-img" alt="<?php echo $project['judul']; ?>">
-                                        <div class="project-body">
-                                            <span class="project-badge">Featured</span>
-                                            <h4 class="mt-3"><?php echo $project['judul']; ?></h4>
-                                            <p class="text-secondary small"><?php echo $project['deskripsi']; ?></p>
-                                            <p class="project-tech"><?php echo $project['teknologi']; ?></p>
-                                        </div>
-                                    </div>
-                                </div>
-                            <?php endforeach; ?>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- CONTACT -->
-                <section id="contact" class="content-section">
-                    <div class="glass-card h-100" data-aos="fade-up">
-                        <h3 class="section-title mb-4">Hubungi Saya</h3>
-
-                        <div class="row g-3">
-                            <div class="col-md-4">
-                                <div class="contact-card h-100">
-                                    <i class="fas fa-envelope"></i>
-                                    <h6>Email</h6>
-                                    <p><?php echo $email; ?></p>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="contact-card h-100">
-                                    <i class="fas fa-phone"></i>
-                                    <h6>Telepon</h6>
-                                    <p><?php echo $phone; ?></p>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="contact-card h-100">
-                                    <i class="fas fa-map-marker-alt"></i>
-                                    <h6>Lokasi</h6>
-                                    <p><?php echo $alamat; ?></p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <hr class="border-secondary my-4">
-
-                        <a href="mailto:<?php echo $email; ?>" class="btn-custom py-3 d-block text-center text-decoration-none">
-                            <i class="fas fa-paper-plane me-2"></i> Kirim Pesan Cepat
-                        </a>
-                    </div>
-                </section>
+                </div>
             </div>
-        </div>
+        </section>
+
+        <!-- =========================
+             PROJECT SECTION
+        ========================= -->
+        <section class="projects-section reveal" id="projects">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-badge">My Projects</span>
+                    <h2 class="section-title">Project Pilihan</h2>
+                    <p class="section-subtitle">
+                        Kumpulan project yang menampilkan proses belajar, kreativitas, dan pengembangan skill
+                        di bidang desain, web, dan digital creation.
+                    </p>
+                </div>
+
+                <div class="projects-grid">
+                    <?php if (mysqli_num_rows($query) > 0): ?>
+                        <?php while ($data = mysqli_fetch_assoc($query)): ?>
+                            <div class="project-card">
+                                <div class="project-image-wrap">
+                                    <img src="img/<?php echo htmlspecialchars($data['gambar']); ?>" alt="<?php echo htmlspecialchars($data['judul']); ?>" class="project-image">
+                                    <div class="project-overlay"></div>
+                                </div>
+
+                                <div class="project-content">
+                                    <span class="project-category">Featured Project</span>
+                                    <h3><?php echo htmlspecialchars($data['judul']); ?></h3>
+                                    <p><?php echo htmlspecialchars($data['deskripsi']); ?></p>
+
+                                    <div class="project-tech">
+                                        <?php
+                                        $teknologi = explode(',', $data['teknologi']);
+                                        foreach ($teknologi as $tech):
+                                        ?>
+                                            <span class="tech-badge"><?php echo trim(htmlspecialchars($tech)); ?></span>
+                                        <?php endforeach; ?>
+                                    </div>
+
+                                    <div class="project-links">
+                                        <a href="#" class="project-btn primary-btn">Lihat Detail</a>
+                                        <a href="#" class="project-btn secondary-btn">Live Preview</a>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php endwhile; ?>
+                    <?php else: ?>
+                        <div class="empty-project">
+                            <h3>Belum Ada Project</h3>
+                            <p>Tambahkan project dari dashboard admin supaya tampil di sini.</p>
+                        </div>
+                    <?php endif; ?>
+                </div>
+            </div>
+        </section>
+
+        <!-- =========================
+             CONTACT SECTION
+        ========================= -->
+        <section class="contact-section reveal" id="contact">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-badge">Contact</span>
+                    <h2 class="section-title">Hubungi Aku</h2>
+                    <p class="section-subtitle">
+                        Kalau ingin bekerja sama, bertanya, atau sekadar melihat perkembangan project-ku,
+                        kamu bisa menghubungi lewat beberapa platform berikut.
+                    </p>
+                </div>
+
+                <div class="contact-grid">
+                    <div class="contact-card">
+                        <span class="contact-label">Social</span>
+                        <h3>Instagram</h3>
+                        <p>@frynn</p>
+                    </div>
+
+                    <div class="contact-card">
+                        <span class="contact-label">Mail</span>
+                        <h3>Email</h3>
+                        <p>frynn@example.com</p>
+                    </div>
+
+                    <div class="contact-card">
+                        <span class="contact-label">Direct</span>
+                        <h3>WhatsApp</h3>
+                        <p>08xxxxxxxxxx</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
     </main>
 
-    <script src="https://unpkg.com/typed.js@2.0.16/dist/typed.umd.js"></script>
+    <!-- =========================
+         FOOTER
+    ========================= -->
+    <footer class="site-footer">
+        <div class="container footer-content">
+            <div class="footer-left">
+                <h3>Frynn<span>.</span></h3>
+                <p>Creative portfolio yang dibangun untuk menampilkan karya, proses belajar, dan perkembangan skill digital.</p>
+            </div>
+
+            <div class="footer-right">
+                <p>© <?php echo date("Y"); ?> Frynn Portfolio</p>
+                <p class="footer-note">Built with HTML, CSS, PHP, and creativity.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- =========================
+         SCRIPT
+    ========================= -->
     <script>
-        new Typed('#typed', {
-            strings: ['Frontend Developer', 'UI/UX Designer', 'Laravel Learner', 'PHP Enthusiast'],
-            typeSpeed: 50,
-            backSpeed: 30,
-            loop: true
-        });
-    </script>
+        // Hamburger menu
+        const menuToggle = document.getElementById('menuToggle');
+        const mobileNav = document.getElementById('mobileNav');
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-
-    <script>
-        AOS.init({
-            duration: 800,
-            once: true
-        });
-
-        document.querySelectorAll('.nav-links a').forEach(link => {
-            link.addEventListener('click', function(e) {
-                const targetId = this.getAttribute('href').substring(1);
-                const targetSection = document.getElementById(targetId);
-
-                if (targetSection) {
-                    e.preventDefault();
-                    document.querySelectorAll('.content-section').forEach(sec => sec.classList.remove('active'));
-                    targetSection.classList.add('active');
-                    document.getElementById('check').checked = false;
-                    AOS.refresh();
-                }
+        if (menuToggle && mobileNav) {
+            menuToggle.addEventListener('click', function() {
+                mobileNav.classList.toggle('show');
             });
-        });
+        }
 
-        particlesJS("particles-js", {
-            particles: {
-                number: {
-                    value: 50
-                },
-                opacity: {
-                    value: 0.1
-                },
-                size: {
-                    value: 2
-                },
-                move: {
-                    speed: 1.5
+        // Reveal scroll
+        const reveals = document.querySelectorAll('.reveal');
+
+        function revealOnScroll() {
+            for (let i = 0; i < reveals.length; i++) {
+                let windowHeight = window.innerHeight;
+                let elementTop = reveals[i].getBoundingClientRect().top;
+                let revealPoint = 100;
+
+                if (elementTop < windowHeight - revealPoint) {
+                    reveals[i].classList.add('show-reveal');
                 }
             }
-        });
+        }
+
+        window.addEventListener('scroll', revealOnScroll);
+        window.addEventListener('load', revealOnScroll);
     </script>
+
 </body>
 
 </html>
