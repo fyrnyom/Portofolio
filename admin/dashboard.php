@@ -33,7 +33,7 @@ $totalProject = mysqli_num_rows(mysqli_query($conn, "SELECT * FROM projects"));
 
             <nav class="sidebar-menu">
                 <a href="dashboard.php" class="active">Dashboard</a>
-                <a href="tambah_project.php">Tambah Project</a>
+                <a href="tambah-project.php">Tambah Project</a>
                 <a href="../index.php" target="_blank">Lihat Website</a>
                 <a href="../logout.php" class="logout-link">Logout</a>
             </nav>
@@ -48,8 +48,15 @@ $totalProject = mysqli_num_rows(mysqli_query($conn, "SELECT * FROM projects"));
                     <h1>Dashboard Admin</h1>
                     <p>Kelola project portfolio kamu dengan lebih rapi dan profesional.</p>
                 </div>
-                <a href="tambah_project.php" class="topbar-btn">+ Tambah Project</a>
+                <a href="tambah-project.php" class="topbar-btn">+ Tambah Project</a>
             </header>
+
+            <!-- ALERT -->
+            <?php if (isset($_GET['success'])): ?>
+                <div class="alert-success">
+                    Project berhasil ditambahkan 🎉
+                </div>
+            <?php endif; ?>
 
             <!-- STATS -->
             <section class="stats-grid">
@@ -95,7 +102,11 @@ $totalProject = mysqli_num_rows(mysqli_query($conn, "SELECT * FROM projects"));
                                     <tr>
                                         <td><?php echo $no++; ?></td>
                                         <td>
-                                            <img src="../img/<?php echo htmlspecialchars($data['gambar']); ?>" alt="<?php echo htmlspecialchars($data['judul']); ?>" class="table-img">
+                                            <?php if (!empty($data['gambar']) && file_exists(__DIR__ . '/../img/' . $data['gambar'])): ?>
+                                                <img src="../img/<?php echo htmlspecialchars($data['gambar']); ?>" alt="<?php echo htmlspecialchars($data['judul']); ?>" class="table-img">
+                                            <?php else: ?>
+                                                <img src="../img/profil.jpg" alt="No Image" class="table-img">
+                                            <?php endif; ?>
                                         </td>
                                         <td class="judul-cell"><?php echo htmlspecialchars($data['judul']); ?></td>
                                         <td class="deskripsi-cell"><?php echo htmlspecialchars($data['deskripsi']); ?></td>

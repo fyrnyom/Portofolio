@@ -15,9 +15,6 @@ $query = mysqli_query($conn, "SELECT * FROM projects ORDER BY id DESC");
 
 <body>
 
-    <!-- =========================
-         NAVBAR
-    ========================= -->
     <header class="site-header">
         <div class="container navbar">
             <a href="#home" class="logo">Arfan<span>.Dev</span></a>
@@ -30,7 +27,7 @@ $query = mysqli_query($conn, "SELECT * FROM projects ORDER BY id DESC");
                     <li><a href="#about">Tentang</a></li>
                     <li><a href="#projects">Project</a></li>
                     <li><a href="#contact">Kontak</a></li>
-                    <li><a href="login.php" class="admin-link">login</a></li>
+                    <li><a href="login.php" class="admin-link">Login</a></li>
                 </ul>
             </nav>
         </div>
@@ -38,9 +35,7 @@ $query = mysqli_query($conn, "SELECT * FROM projects ORDER BY id DESC");
 
     <main class="main-content">
 
-        <!-- =========================
-             HERO SECTION
-        ========================= -->
+        <!-- HERO -->
         <section class="hero-section reveal" id="home">
             <div class="container hero-container">
                 <div class="hero-left">
@@ -58,8 +53,8 @@ $query = mysqli_query($conn, "SELECT * FROM projects ORDER BY id DESC");
                     <div class="hero-buttons">
                         <a href="#projects" class="hero-btn primary-hero-btn">Lihat Project</a>
                         <a href="#contact" class="hero-btn secondary-hero-btn">Hubungi Aku</a>
-                        <a href="cv/cv-frynn.pdf" class="hero-btn cv-btn" download>Download CV</a>
                     </div>
+
                     <div class="hero-mini-stats">
                         <div class="hero-stat">
                             <h3>Creative</h3>
@@ -79,7 +74,7 @@ $query = mysqli_query($conn, "SELECT * FROM projects ORDER BY id DESC");
                 <div class="hero-right">
                     <div class="hero-card">
                         <div class="hero-glow"></div>
-                        <img src="img/profil.jpg" alt="Profile Arfan" class="hero-image">
+                        <img src="img/profil.jpeg" alt="Profile Arfan" class="hero-image">
                         <div class="hero-card-content">
                             <h3>Creative Mindset</h3>
                             <p>
@@ -92,9 +87,7 @@ $query = mysqli_query($conn, "SELECT * FROM projects ORDER BY id DESC");
             </div>
         </section>
 
-        <!-- =========================
-             ABOUT SECTION
-        ========================= -->
+        <!-- ABOUT -->
         <section class="about-section reveal" id="about">
             <div class="container">
                 <div class="section-header">
@@ -140,9 +133,7 @@ $query = mysqli_query($conn, "SELECT * FROM projects ORDER BY id DESC");
             </div>
         </section>
 
-        <!-- =========================
-             PROJECT SECTION
-        ========================= -->
+        <!-- PROJECT -->
         <section class="projects-section reveal" id="projects">
             <div class="container">
                 <div class="section-header">
@@ -159,7 +150,11 @@ $query = mysqli_query($conn, "SELECT * FROM projects ORDER BY id DESC");
                         <?php while ($data = mysqli_fetch_assoc($query)): ?>
                             <div class="project-card">
                                 <div class="project-image-wrap">
-                                    <img src="img/<?php echo htmlspecialchars($data['gambar']); ?>" alt="<?php echo htmlspecialchars($data['judul']); ?>" class="project-image">
+                                    <?php if (!empty($data['gambar']) && file_exists(__DIR__ . '/img/' . $data['gambar'])): ?>
+                                        <img src="img/<?php echo htmlspecialchars($data['gambar']); ?>" alt="<?php echo htmlspecialchars($data['judul']); ?>" class="project-image">
+                                    <?php else: ?>
+                                        <img src="img/profil.jpg" alt="No Image" class="project-image">
+                                    <?php endif; ?>
                                     <div class="project-overlay"></div>
                                 </div>
 
@@ -178,8 +173,13 @@ $query = mysqli_query($conn, "SELECT * FROM projects ORDER BY id DESC");
                                     </div>
 
                                     <div class="project-links">
-                                        <a href="#" class="project-btn primary-btn">Lihat Detail</a>
-                                        <a href="#" class="project-btn secondary-btn">Live Preview</a>
+                                        <?php if (!empty($data['github'])): ?>
+                                            <a href="<?php echo htmlspecialchars($data['github']); ?>" target="_blank" class="project-btn primary-btn">GitHub</a>
+                                        <?php endif; ?>
+
+                                        <?php if (!empty($data['demo'])): ?>
+                                            <a href="<?php echo htmlspecialchars($data['demo']); ?>" target="_blank" class="project-btn secondary-btn">Live Preview</a>
+                                        <?php endif; ?>
                                     </div>
                                 </div>
                             </div>
@@ -194,9 +194,7 @@ $query = mysqli_query($conn, "SELECT * FROM projects ORDER BY id DESC");
             </div>
         </section>
 
-        <!-- =========================
-             CONTACT SECTION
-        ========================= -->
+        <!-- CONTACT -->
         <section class="contact-section reveal" id="contact">
             <div class="container">
                 <div class="section-header">
@@ -232,28 +230,45 @@ $query = mysqli_query($conn, "SELECT * FROM projects ORDER BY id DESC");
 
     </main>
 
-    <!-- =========================
-         FOOTER
-    ========================= -->
-    <footer class="site-footer">
-        <div class="container footer-content">
-            <div class="footer-left">
-                <h3>Frynn<span>.</span></h3>
-                <p>Creative portfolio yang dibangun untuk menampilkan karya, proses belajar, dan perkembangan skill digital.</p>
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container footer-top">
+            <div class="footer-brand">
+                <a href="#home" class="footer-logo">Arfan<span>.Dev</span></a>
+                <p>
+                    Portfolio digital kreatif yang menampilkan karya, project, dan proses belajar di dunia web & design.
+                </p>
             </div>
 
-            <div class="footer-right">
-                <p>© <?php echo date("Y"); ?> Frynn Portfolio</p>
-                <p class="footer-note">Built with HTML, CSS, PHP, and creativity.</p>
+            <div class="footer-links">
+                <h3>Menu</h3>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">Tentang</a></li>
+                    <li><a href="#projects">Project</a></li>
+                    <li><a href="#contact">Kontak</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-contact">
+                <h3>Connect</h3>
+                <ul>
+                    <li><a href="https://instagram.com/" target="_blank">Instagram</a></li>
+                    <li><a href="https://github.com/" target="_blank">GitHub</a></li>
+                    <li><a href="mailto:frynn@example.com">Email</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <div class="container footer-bottom-content">
+                <p>© 2026 Arfan.Dev</p>
+                <p class="footer-made">Built with HTML, CSS & PHP</p>
             </div>
         </div>
     </footer>
 
-    <!-- =========================
-         SCRIPT
-    ========================= -->
     <script>
-        // Hamburger menu
         const menuToggle = document.getElementById('menuToggle');
         const mobileNav = document.getElementById('mobileNav');
 
@@ -263,7 +278,6 @@ $query = mysqli_query($conn, "SELECT * FROM projects ORDER BY id DESC");
             });
         }
 
-        // Reveal scroll
         const reveals = document.querySelectorAll('.reveal');
 
         function revealOnScroll() {
