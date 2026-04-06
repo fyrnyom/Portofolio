@@ -79,7 +79,7 @@ $query = mysqli_query($conn, "SELECT * FROM projects ORDER BY id DESC");
                 <div class="hero-right">
                     <div class="hero-card">
                         <div class="hero-glow"></div>
-                        <img src="profil.jpg" alt="Profile Arfan" class="hero-image">
+                        <img src="img/profil.jpg" alt="Profile Arfan" class="hero-image">
                         <div class="hero-card-content">
                             <h3>Creative Mindset</h3>
                             <p>

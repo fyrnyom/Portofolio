@@ -16,7 +16,7 @@ if (isset($_POST['submit'])) {
     $tmp = $_FILES['gambar']['tmp_name'];
 
     if (!empty($gambar)) {
-        move_uploaded_file($tmp, "../uploads/" . $gambar);
+        move_uploaded_file($tmp, "../img/" . $gambar);
 
         $insert = mysqli_query($conn, "INSERT INTO projects (judul, deskripsi, gambar, teknologi)
             VALUES ('$judul', '$deskripsi', '$gambar', '$teknologi')");

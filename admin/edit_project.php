@@ -30,7 +30,7 @@ if (isset($_POST['submit'])) {
     $tmp = $_FILES['gambar']['tmp_name'];
 
     if (!empty($gambarBaru)) {
-        move_uploaded_file($tmp, "../uploads/" . $gambarBaru);
+        move_uploaded_file($tmp, "../img/" . $gambarBaru);
         $gambarUpdate = $gambarBaru;
     } else {
         $gambarUpdate = $data['gambar'];
