@@ -30,7 +30,7 @@ $query = mysqli_query($conn, "SELECT * FROM projects ORDER BY id DESC");
                     <li><a href="#about">Tentang</a></li>
                     <li><a href="#projects">Project</a></li>
                     <li><a href="#contact">Kontak</a></li>
-                    <li><a href="login.php" class="admin-link">Admin</a></li>
+                    <li><a href="login.php" class="admin-link">login</a></li>
                 </ul>
             </nav>
         </div>
@@ -79,7 +79,7 @@ $query = mysqli_query($conn, "SELECT * FROM projects ORDER BY id DESC");
                 <div class="hero-right">
                     <div class="hero-card">
                         <div class="hero-glow"></div>
-                        <img src="uploads/profil.jpg" alt="Profile Arfan" class="hero-image">
+                        <img src="profil.jpg" alt="Profile Arfan" class="hero-image">
                         <div class="hero-card-content">
                             <h3>Creative Mindset</h3>
                             <p>
