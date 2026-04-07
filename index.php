@@ -208,13 +208,13 @@ $query = mysqli_query($conn, "SELECT * FROM projects ORDER BY id DESC");
                 <div class="contact-card">
                     <span class="contact-label">Mail</span>
                     <h3>Email</h3>
-                    <p>frynn@example.com</p>
+                    <p>frynn@gmail.com</p>
                 </div>
 
                 <div class="contact-card">
                     <span class="contact-label">Direct</span>
                     <h3>WhatsApp</h3>
-                    <p>08xxxxxxxxxx</p>
+                    <p>0895393335075</p>
                 </div>
             </div>
         </div>
