@@ -7,14 +7,14 @@ if (!isset($_SESSION['admin'])) {
 
 include '../koneksi.php';
 
-$id = $_GET['id'];
+$id = (int) $_GET['id'];
 $data = mysqli_query($conn, "SELECT * FROM projects WHERE id='$id'");
 $row = mysqli_fetch_assoc($data);
 
 if ($row) {
     $gambarPath = "../uploads/" . $row['gambar'];
 
-    if (file_exists($gambarPath)) {
+    if (!empty($row['gambar']) && file_exists($gambarPath)) {
         unlink($gambarPath);
     }
 

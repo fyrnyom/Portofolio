@@ -1,132 +1,122 @@
 <?php
+session_start();
 include '../koneksi.php';
+
+if (!isset($_SESSION['admin'])) {
+    header("Location: ../login.php");
+    exit;
+}
+
+$error = '';
 
 if (isset($_POST['submit'])) {
     $judul = mysqli_real_escape_string($conn, $_POST['judul']);
     $deskripsi = mysqli_real_escape_string($conn, $_POST['deskripsi']);
     $teknologi = mysqli_real_escape_string($conn, $_POST['teknologi']);
-    $github = mysqli_real_escape_string($conn, $_POST['github']);
-    $demo = mysqli_real_escape_string($conn, $_POST['demo']);
 
     $gambar = '';
 
     if (isset($_FILES['gambar']) && $_FILES['gambar']['error'] === 0) {
-        $namaFile = $_FILES['gambar']['name'];
-        $tmpName = $_FILES['gambar']['tmp_name'];
+        $gambar = time() . '_' . basename($_FILES['gambar']['name']);
+        $tmp = $_FILES['gambar']['tmp_name'];
+        $target = "../uploads/" . $gambar;
 
-        $ext = strtolower(pathinfo($namaFile, PATHINFO_EXTENSION));
-        $allowed = ['jpg', 'jpeg', 'png', 'webp'];
-
-        if (in_array($ext, $allowed)) {
-            $gambarBaru = time() . '_' . uniqid() . '.' . $ext;
-
-            $uploadDir = '../img/';
-            if (!is_dir($uploadDir)) {
-                mkdir($uploadDir, 0755, true);
-            }
-
-            if (move_uploaded_file($tmpName, $uploadDir . $gambarBaru)) {
-                $gambar = $gambarBaru;
-            } else {
-                die("Gagal upload gambar ke server.");
-            }
-        } else {
-            die("Format gambar tidak didukung. Gunakan JPG, JPEG, PNG, atau WEBP.");
+        if (!move_uploaded_file($tmp, $target)) {
+            $error = "Gagal upload gambar.";
         }
+    } else {
+        $error = "Silakan upload gambar project.";
     }
 
-    $query = "INSERT INTO projects (judul, deskripsi, teknologi, gambar, github, demo)
-              VALUES ('$judul', '$deskripsi', '$teknologi', '$gambar', '$github', '$demo')";
+    if (empty($error)) {
+        $insert = mysqli_query($conn, "INSERT INTO projects (judul, deskripsi, gambar, teknologi)
+            VALUES ('$judul', '$deskripsi', '$gambar', '$teknologi')");
 
-    if (mysqli_query($conn, $query)) {
-        header("Location: dashboard.php?success=1");
-        exit;
-    } else {
-        echo "Gagal simpan data: " . mysqli_error($conn);
+        if ($insert) {
+            echo "<script>alert('Project berhasil ditambahkan!'); window.location='dashboard.php';</script>";
+            exit;
+        } else {
+            $error = "Gagal menyimpan project ke database.";
+        }
     }
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="id">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tambah Project</title>
-    <link rel="stylesheet" href="../style.css">
-    <style>
-        body {
-            background: #0f172a;
-            color: white;
-            font-family: Arial, sans-serif;
-            padding: 30px;
-        }
-
-        .form-box {
-            max-width: 700px;
-            margin: auto;
-            background: #111827;
-            padding: 30px;
-            border-radius: 20px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.25);
-        }
-
-        .form-box h1 {
-            margin-bottom: 25px;
-        }
-
-        .form-box input,
-        .form-box textarea {
-            width: 100%;
-            padding: 14px;
-            margin-bottom: 16px;
-            border: none;
-            border-radius: 12px;
-            background: #1e293b;
-            color: white;
-        }
-
-        .form-box button {
-            background: #38bdf8;
-            color: #0f172a;
-            border: none;
-            padding: 14px 24px;
-            border-radius: 12px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-
-        .form-box button:hover {
-            opacity: 0.9;
-        }
-
-        .back-link {
-            display: inline-block;
-            margin-top: 20px;
-            color: #94a3b8;
-            text-decoration: none;
-        }
-    </style>
+    <title>Tambah Project - Frynn Admin</title>
+    <link rel="stylesheet" href="admin.css">
 </head>
 
 <body>
 
-    <div class="form-box">
-        <h1>Tambah Project</h1>
+    <div class="admin-wrapper">
 
-        <form method="POST" enctype="multipart/form-data">
-            <input type="text" name="judul" placeholder="Judul Project" required>
-            <textarea name="deskripsi" placeholder="Deskripsi Project" rows="5" required></textarea>
-            <input type="text" name="teknologi" placeholder="Contoh: HTML, CSS, PHP" required>
-            <input type="file" name="gambar" accept="image/*" required>
-            <input type="text" name="github" placeholder="Link GitHub (opsional)">
-            <input type="text" name="demo" placeholder="Link Demo / Preview (opsional)">
+        <aside class="sidebar">
+            <div class="sidebar-top">
+                <h2>Frynn<span>Admin</span></h2>
+                <p>Portfolio Management</p>
+            </div>
 
-            <button type="submit" name="submit">Simpan Project</button>
-        </form>
+            <nav class="sidebar-menu">
+                <a href="dashboard.php">Dashboard</a>
+                <a href="tambah_project.php" class="active">Tambah Project</a>
+                <a href="../index.php" target="_blank">Lihat Website</a>
+                <a href="../logout.php" class="logout-link">Logout</a>
+            </nav>
+        </aside>
 
-        <a href="dashboard.php" class="back-link">← Kembali ke Dashboard</a>
+        <main class="admin-main">
+            <header class="topbar">
+                <div>
+                    <h1>Tambah Project</h1>
+                    <p>Tambahkan project baru ke portfolio kamu.</p>
+                </div>
+                <a href="dashboard.php" class="topbar-btn">← Kembali Dashboard</a>
+            </header>
+
+            <section class="form-section">
+                <div class="form-header">
+                    <h2>Form Tambah Project</h2>
+                    <p>Isi data project dengan lengkap.</p>
+                </div>
+
+                <?php if (!empty($error)): ?>
+                    <div class="alert-error"><?php echo $error; ?></div>
+                <?php endif; ?>
+
+                <form action="" method="POST" enctype="multipart/form-data" class="project-form">
+                    <div class="form-group">
+                        <label for="judul">Judul Project</label>
+                        <input type="text" name="judul" id="judul" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="deskripsi">Deskripsi</label>
+                        <textarea name="deskripsi" id="deskripsi" rows="6" required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="teknologi">Teknologi</label>
+                        <input type="text" name="teknologi" id="teknologi" required>
+                        <small>Pisahkan beberapa teknologi dengan koma.</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="gambar">Upload Gambar</label>
+                        <input type="file" name="gambar" id="gambar" accept="image/*" required>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" name="submit" class="submit-btn">🚀 Simpan Project</button>
+                        <a href="dashboard.php" class="cancel-btn">Batal</a>
+                    </div>
+                </form>
+            </section>
+        </main>
     </div>
 
 </body>

@@ -26,14 +26,19 @@ if (isset($_POST['submit'])) {
     $deskripsi = mysqli_real_escape_string($conn, $_POST['deskripsi']);
     $teknologi = mysqli_real_escape_string($conn, $_POST['teknologi']);
 
-    $gambarBaru = $_FILES['gambar']['name'];
-    $tmp = $_FILES['gambar']['tmp_name'];
+    $gambarUpdate = $data['gambar'];
 
-    if (!empty($gambarBaru)) {
-        move_uploaded_file($tmp, "../img/" . $gambarBaru);
-        $gambarUpdate = $gambarBaru;
-    } else {
-        $gambarUpdate = $data['gambar'];
+    if (isset($_FILES['gambar']) && $_FILES['gambar']['error'] === 0) {
+        $gambarBaru = time() . '_' . basename($_FILES['gambar']['name']);
+        $tmp = $_FILES['gambar']['tmp_name'];
+        $target = "../uploads/" . $gambarBaru;
+
+        if (move_uploaded_file($tmp, $target)) {
+            if (!empty($data['gambar']) && file_exists("../uploads/" . $data['gambar'])) {
+                unlink("../uploads/" . $data['gambar']);
+            }
+            $gambarUpdate = $gambarBaru;
+        }
     }
 
     $update = mysqli_query($conn, "UPDATE projects SET
@@ -66,7 +71,6 @@ if (isset($_POST['submit'])) {
 
     <div class="admin-wrapper">
 
-        <!-- SIDEBAR -->
         <aside class="sidebar">
             <div class="sidebar-top">
                 <h2>Frynn<span>Admin</span></h2>
@@ -81,7 +85,6 @@ if (isset($_POST['submit'])) {
             </nav>
         </aside>
 
-        <!-- MAIN -->
         <main class="admin-main">
 
             <header class="topbar">
@@ -104,7 +107,7 @@ if (isset($_POST['submit'])) {
 
                 <div class="current-image-box">
                     <p class="current-image-label">Gambar Saat Ini</p>
-                    <img src="../img/<?php echo htmlspecialchars($data['gambar']); ?>" alt="<?php echo htmlspecialchars($data['judul']); ?>" class="current-project-image">
+                    <img src="../uploads/<?php echo htmlspecialchars($data['gambar']); ?>" alt="<?php echo htmlspecialchars($data['judul']); ?>" class="current-project-image">
                 </div>
 
                 <form action="" method="POST" enctype="multipart/form-data" class="project-form">

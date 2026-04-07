@@ -24,7 +24,6 @@ $totalProject = mysqli_num_rows(mysqli_query($conn, "SELECT * FROM projects"));
 
     <div class="admin-wrapper">
 
-        <!-- SIDEBAR -->
         <aside class="sidebar">
             <div class="sidebar-top">
                 <h2>FlyFrynn<span>.Admin</span></h2>
@@ -33,32 +32,22 @@ $totalProject = mysqli_num_rows(mysqli_query($conn, "SELECT * FROM projects"));
 
             <nav class="sidebar-menu">
                 <a href="dashboard.php" class="active">Dashboard</a>
-                <a href="tambah-project.php">Tambah Project</a>
+                <a href="tambah_project.php">Tambah Project</a>
                 <a href="../index.php" target="_blank">Lihat Website</a>
                 <a href="../logout.php" class="logout-link">Logout</a>
             </nav>
         </aside>
 
-        <!-- MAIN -->
         <main class="admin-main">
 
-            <!-- TOPBAR -->
             <header class="topbar">
                 <div>
                     <h1>Dashboard Admin</h1>
                     <p>Kelola project portfolio kamu dengan lebih rapi dan profesional.</p>
                 </div>
-                <a href="tambah-project.php" class="topbar-btn">+ Tambah Project</a>
+                <a href="tambah_project.php" class="topbar-btn">+ Tambah Project</a>
             </header>
 
-            <!-- ALERT -->
-            <?php if (isset($_GET['success'])): ?>
-                <div class="alert-success">
-                    Project berhasil ditambahkan 🎉
-                </div>
-            <?php endif; ?>
-
-            <!-- STATS -->
             <section class="stats-grid">
                 <div class="stat-card">
                     <h3>Total Project</h3>
@@ -76,7 +65,6 @@ $totalProject = mysqli_num_rows(mysqli_query($conn, "SELECT * FROM projects"));
                 </div>
             </section>
 
-            <!-- TABLE -->
             <section class="table-section">
                 <div class="table-header">
                     <h2>Daftar Project</h2>
@@ -102,11 +90,7 @@ $totalProject = mysqli_num_rows(mysqli_query($conn, "SELECT * FROM projects"));
                                     <tr>
                                         <td><?php echo $no++; ?></td>
                                         <td>
-                                            <?php if (!empty($data['gambar']) && file_exists(__DIR__ . '/../img/' . $data['gambar'])): ?>
-                                                <img src="../img/<?php echo htmlspecialchars($data['gambar']); ?>" alt="<?php echo htmlspecialchars($data['judul']); ?>" class="table-img">
-                                            <?php else: ?>
-                                                <img src="../img/profil.jpg" alt="No Image" class="table-img">
-                                            <?php endif; ?>
+                                            <img src="../uploads/<?php echo htmlspecialchars($data['gambar']); ?>" alt="<?php echo htmlspecialchars($data['judul']); ?>" class="table-img">
                                         </td>
                                         <td class="judul-cell"><?php echo htmlspecialchars($data['judul']); ?></td>
                                         <td class="deskripsi-cell"><?php echo htmlspecialchars($data['deskripsi']); ?></td>
