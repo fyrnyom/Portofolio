@@ -143,7 +143,7 @@ $totalProject = mysqli_num_rows(mysqli_query($conn, "SELECT * FROM projects"));
             <div class="container">
                 <div class="section-header">
                     <span class="section-badge">Portfolio</span>
-                    <h2 class="section-title">Project Saya</h2>
+                    <h2 class="section-title">Project </h2>
                     <p class="section-subtitle">
                         Beberapa hasil karya dan project yang sudah dibuat dan terus dikembangkan.
                     </p>
