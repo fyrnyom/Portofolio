@@ -56,7 +56,6 @@ $query = mysqli_query($conn, "SELECT * FROM projects ORDER BY id DESC");
                 <div class="hero-buttons">
                     <a href="#projects" class="hero-btn primary-hero-btn">Lihat Project</a>
                     <a href="#contact" class="hero-btn secondary-hero-btn">Hubungi Aku</a>
-                    <a href="cv/cv-frynn.pdf" class="hero-btn cv-btn" download>Download CV</a>
                 </div>
 
                 <div class="hero-mini-stats">
