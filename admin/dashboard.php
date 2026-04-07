@@ -21,12 +21,10 @@ $totalProject = mysqli_num_rows(mysqli_query($conn, "SELECT * FROM projects"));
 </head>
 
 <body>
-
     <div class="admin-wrapper">
-
         <aside class="sidebar">
             <div class="sidebar-top">
-                <h2>FlyFrynn<span>.Admin</span></h2>
+                <h2>Frynn<span>Admin</span></h2>
                 <p>Portfolio Management</p>
             </div>
 
@@ -39,7 +37,6 @@ $totalProject = mysqli_num_rows(mysqli_query($conn, "SELECT * FROM projects"));
         </aside>
 
         <main class="admin-main">
-
             <header class="topbar">
                 <div>
                     <h1>Dashboard Admin</h1>
@@ -90,7 +87,7 @@ $totalProject = mysqli_num_rows(mysqli_query($conn, "SELECT * FROM projects"));
                                     <tr>
                                         <td><?php echo $no++; ?></td>
                                         <td>
-                                            <img src="../uploads/<?php echo htmlspecialchars($data['gambar']); ?>" alt="<?php echo htmlspecialchars($data['judul']); ?>" class="table-img">
+                                            <img src="../img/<?php echo htmlspecialchars($data['gambar']); ?>" class="table-img">
                                         </td>
                                         <td class="judul-cell"><?php echo htmlspecialchars($data['judul']); ?></td>
                                         <td class="deskripsi-cell"><?php echo htmlspecialchars($data['deskripsi']); ?></td>
@@ -105,19 +102,15 @@ $totalProject = mysqli_num_rows(mysqli_query($conn, "SELECT * FROM projects"));
                                 <?php endwhile; ?>
                             <?php else: ?>
                                 <tr>
-                                    <td colspan="6" class="empty-row">
-                                        Belum ada project. Tambahkan project pertama kamu sekarang.
-                                    </td>
+                                    <td colspan="6" class="empty-row">Belum ada project.</td>
                                 </tr>
                             <?php endif; ?>
                         </tbody>
                     </table>
                 </div>
             </section>
-
         </main>
     </div>
-
 </body>
 
 </html>

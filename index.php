@@ -1,8 +1,6 @@
 <?php
 include 'koneksi.php';
-
 $query = mysqli_query($conn, "SELECT * FROM projects ORDER BY id DESC");
-$totalProject = mysqli_num_rows(mysqli_query($conn, "SELECT * FROM projects"));
 ?>
 <!DOCTYPE html>
 <html lang="id">
@@ -10,298 +8,240 @@ $totalProject = mysqli_num_rows(mysqli_query($conn, "SELECT * FROM projects"));
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Frynn - Portfolio</title>
+    <title>Frynn Portfolio</title>
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-    <!-- HEADER -->
-    <header class="site-header">
-        <div class="container navbar">
-            <a href="#" class="logo">Fly<span>Frynn</span></a>
+    <!-- Navbar -->
+    <header class="navbar">
+        <div class="container nav-container">
+            <a href="#" class="logo">Frynn.<span>.</span></a>
 
-            <button class="menu-toggle" id="menuToggle">☰</button>
-
-            <nav id="mobileMenu">
-                <ul class="nav-links">
-                    <li><a href="#home" class="active">Home</a></li>
-                    <li><a href="#about">Tentang</a></li>
-                    <li><a href="#projects">Project</a></li>
-                    <li><a href="#contact">Kontak</a></li>
-                    <li><a href="admin/login.php" class="admin-link">Admin</a></li>
-                </ul>
+            <nav class="nav-links" id="navLinks">
+                <a href="#home">Home</a>
+                <a href="#about">About</a>
+                <a href="#projects">Projects</a>
+                <a href="#contact">Contact</a>
+                <a href="login.php" class="admin-btn">Admin login</a>
             </nav>
+
+            <div class="menu-toggle" id="menuToggle">
+                ☰
+            </div>
         </div>
     </header>
 
-    <main class="main-content">
-
-        <!-- HERO -->
-        <section class="hero-section reveal" id="home">
-            <div class="container hero-container">
-                <div class="hero-left">
-                    <span class="hero-badge">🚀 Portfolio Digital</span>
-                    <h1 class="hero-title">Halo, Aku <span>Frynn</span></h1>
-                    <p class="hero-role">Creative Developer • Designer • Content Creator</p>
-                    <p class="hero-desc">
-                        Aku membangun website, visual, dan project digital yang modern, clean,
-                        serta punya identitas kuat. Portfolio ini berisi hasil karya dan project
-                        yang sedang aku kembangkan.
-                    </p>
-
-                    <div class="hero-buttons">
-                        <a href="#projects" class="hero-btn primary-hero-btn">Lihat Project</a>
-                        <a href="#contact" class="hero-btn secondary-hero-btn">Hubungi Aku</a>
-                    </div>
-
-                    <div class="hero-mini-stats">
-                        <div class="hero-stat">
-                            <h3><?php echo $totalProject; ?>+</h3>
-                            <p>Total Project</p>
-                        </div>
-                        <div class="hero-stat">
-                            <h3>100%</h3>
-                            <p>Creative Process</p>
-                        </div>
-                        <div class="hero-stat">
-                            <h3>Online</h3>
-                            <p>Available</p>
-                        </div>
+    <!-- Hero -->
+    <section class="hero-section" id="home">
+        <div class="container hero-grid">
+            <div class="hero-left">
+                <div class="hero-top-profile">
+                    <img src="img/profil-2.jpg" alt="Foto Profil Frynn" class="hero-profile-mini">
+                    <div>
+                        <span class="hero-badge">Creative Portfolio</span>
+                        <h1 class="hero-title">
+                            Halo, Aku <span>Arfan</span>
+                        </h1>
+                        <p class="hero-role">Pelajar • Designer • Creative Developer</p>
                     </div>
                 </div>
+                <p class="hero-desc">
+                    Aku membangun project digital yang menggabungkan kreativitas, visual yang rapi,
+                    dan proses belajar yang terus berkembang. Portfolio ini menjadi tempat untuk
+                    menampilkan karya, eksperimen, dan perjalanan skill-ku di dunia digital.
+                </p>
 
-                <div class="hero-right">
-                    <div class="hero-card">
-                        <div class="hero-glow"></div>
+                <div class="hero-buttons">
+                    <a href="#projects" class="hero-btn primary-hero-btn">Lihat Project</a>
+                    <a href="#contact" class="hero-btn secondary-hero-btn">Hubungi Aku</a>
+                    <a href="cv/cv-frynn.pdf" class="hero-btn cv-btn" download>Download CV</a>
+                </div>
 
-                        <!-- FOTO HERO / PROFIL -->
-                        <!-- kalau foto kamu manual, taruh di folder img -->
-                        <img src="img/profil-2.jpg" alt="Frynn" class="hero-image">
+                <div class="hero-mini-stats">
+                    <div class="hero-stat">
+                        <h3>Creative</h3>
+                        <p>Visual & Design</p>
+                    </div>
+                    <div class="hero-stat">
+                        <h3>Web</h3>
+                        <p>HTML • CSS • PHP</p>
+                    </div>
+                    <div class="hero-stat">
+                        <h3>Growth</h3>
+                        <p>Belajar & Berkembang</p>
+                    </div>
+                </div>
+            </div>
 
-                        <div class="hero-card-content">
-                            <h3>Building Visual Identity</h3>
-                            <p>
-                                Fokus pada pengembangan portfolio, branding personal,
-                                project digital, dan karya visual yang modern serta profesional.
-                            </p>
+            <div class="hero-right">
+                <div class="hero-card">
+                    <div class="hero-glow"></div>
+                    <div class="hero-profile">
+                        <h3>Arfan Achmad A</h3>
+                        <p>Creative Portfolio Owner</p>
+                    </div>
+                    <div class="hero-info-boxes">
+                        <div class="info-box">
+                            <span>Focus</span>
+                            <h4>Creative Web</h4>
+                        </div>
+                        <div class="info-box">
+                            <span>Style</span>
+                            <h4>Modern Premium</h4>
+                        </div>
+                        <div class="info-box">
+                            <span>Status</span>
+                            <h4>Available</h4>
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- ABOUT -->
-        <section class="about-section reveal" id="about">
-            <div class="container">
-                <div class="section-header">
-                    <span class="section-badge">Tentang Saya</span>
-                    <h2 class="section-title">Siapa Aku?</h2>
-                    <p class="section-subtitle">
-                        Aku suka membangun hal-hal kreatif yang bisa dilihat, dipakai, dan dinikmati orang lain.
+    <!-- About -->
+    <section class="section about-section" id="about">
+        <div class="container">
+            <div class="section-heading">
+                <span class="section-badge">About Me</span>
+                <h2 class="section-title">Tentang Saya</h2>
+                <p class="section-subtitle">
+                    Sedikit gambaran tentang siapa saya, apa yang saya pelajari, dan fokus yang sedang saya kembangkan.
+                </p>
+            </div>
+
+            <div class="about-grid">
+                <div class="about-card large-card">
+                    <h3>Siapa Aku?</h3>
+                    <p>
+                        Aku adalah seorang pelajar dari SMKN 1 bangsri yang tertarik di dunia desain, teknologi,
+                        dan pengembangan karya digital. Aku suka membangun sesuatu dari ide sederhana
+                        menjadi hasil visual yang lebih rapi, menarik, dan punya nilai presentasi yang kuat.
                     </p>
                 </div>
 
-                <div class="about-grid">
-                    <div class="about-card large-card">
-                        <h3>Perkenalan</h3>
-                        <p>
-                            Aku adalah seorang kreator digital yang tertarik pada pengembangan website,
-                            desain visual, branding, serta project kreatif yang bisa berkembang menjadi
-                            sesuatu yang lebih besar.
-                        </p>
-                    </div>
+                <div class="about-card">
+                    <h3>Skill</h3>
+                    <ul class="about-list">
+                        <li>UI / Visual Design</li>
+                        <li>HTML, CSS, PHP Dasar</li>
+                        <li>Laravel Framework</li>
+                    </ul>
+                </div>
 
-                    <div class="about-card">
-                        <h3>Fokus</h3>
-                        <ul class="about-list">
-                            <li>Website Development</li>
-                            <li>UI / Visual Design</li>
-                            <li>Creative Branding</li>
-                            <li>Digital Project Building</li>
-                        </ul>
-                    </div>
-
-                    <div class="about-card">
-                        <h3>Skill & Tools</h3>
-                        <div class="about-tags">
-                            <span>PHP</span>
-                            <span>MySQL</span>
-                            <span>HTML</span>
-                            <span>CSS</span>
-                            <span>JavaScript</span>
-                            <span>Canva</span>
-                            <span>Figma</span>
-                        </div>
+                <div class="about-card">
+                    <h3>Fokus Saat Ini</h3>
+                    <div class="about-tags">
+                        <span>Portfolio Website</span>
+                        <span>Frontend Practice</span>
+                        <span>Visual Project</span>
+                        <span>Digital Creation</span>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- PROJECTS -->
-        <section class="projects-section reveal" id="projects">
-            <div class="container">
-                <div class="section-header">
-                    <span class="section-badge">Portfolio</span>
-                    <h2 class="section-title">Project </h2>
-                    <p class="section-subtitle">
-                        Beberapa hasil karya dan project yang sudah dibuat dan terus dikembangkan.
-                    </p>
-                </div>
+    <!-- Projects -->
+    <section class="section projects-section" id="projects">
+        <div class="container">
+            <div class="section-heading">
+                <span class="section-badge">Featured Work</span>
+                <h2 class="section-title">My Projects</h2>
+                <p class="section-subtitle">
+                    Beberapa project yang saya kerjakan untuk mengasah skill, kreativitas, dan kemampuan membangun tampilan digital.
+                </p>
+            </div>
 
-                <div class="projects-grid">
-                    <?php if (mysqli_num_rows($query) > 0): ?>
-                        <?php while ($data = mysqli_fetch_assoc($query)): ?>
-
-                            <?php
-                            $gambar = !empty($data['gambar']) ? htmlspecialchars($data['gambar']) : 'default.jpg';
-                            $gambarPath = "uploads/" . $gambar;
-                            ?>
-
-                            <div class="project-card reveal">
-                                <div class="project-image-wrap">
-                                    <img src="<?php echo $gambarPath; ?>" alt="<?php echo htmlspecialchars($data['judul']); ?>" class="project-image">
-                                    <div class="project-overlay"></div>
-                                </div>
-
-                                <div class="project-content">
-                                    <span class="project-category">Featured Project</span>
-                                    <h3><?php echo htmlspecialchars($data['judul']); ?></h3>
-                                    <p><?php echo htmlspecialchars($data['deskripsi']); ?></p>
-
-                                    <div class="project-tech">
-                                        <?php
-                                        $teknologi = explode(',', $data['teknologi']);
-                                        foreach ($teknologi as $tech):
-                                        ?>
-                                            <span class="tech-badge"><?php echo trim(htmlspecialchars($tech)); ?></span>
-                                        <?php endforeach; ?>
-                                    </div>
-
-                                    <div class="project-links">
-                                        <?php if (!empty($data['link_demo'])): ?>
-                                            <a href="<?php echo htmlspecialchars($data['link_demo']); ?>" target="_blank" class="project-btn primary-btn">Live Demo</a>
-                                        <?php endif; ?>
-
-                                        <?php if (!empty($data['link_github'])): ?>
-                                            <a href="<?php echo htmlspecialchars($data['link_github']); ?>" target="_blank" class="project-btn secondary-btn">GitHub</a>
-                                        <?php endif; ?>
-                                    </div>
+            <div class="projects-grid">
+                <?php if (mysqli_num_rows($query) > 0): ?>
+                    <?php while ($data = mysqli_fetch_assoc($query)): ?>
+                        <div class="project-card">
+                            <div class="project-image-wrapper">
+                                <img src="img/<?php echo htmlspecialchars($data['gambar']); ?>" alt="<?php echo htmlspecialchars($data['judul']); ?>" class="project-image">
+                            </div>
+                            <div class="project-content">
+                                <span class="project-label">Project</span>
+                                <h3><?php echo htmlspecialchars($data['judul']); ?></h3>
+                                <p><?php echo htmlspecialchars($data['deskripsi']); ?></p>
+                                <div class="tech-stack">
+                                    <?php
+                                    $teknologi = explode(",", $data['teknologi']);
+                                    foreach ($teknologi as $tech):
+                                    ?>
+                                        <span><?php echo trim(htmlspecialchars($tech)); ?></span>
+                                    <?php endforeach; ?>
                                 </div>
                             </div>
-
-                        <?php endwhile; ?>
-                    <?php else: ?>
-                        <div class="empty-project">
-                            <h3>Belum Ada Project</h3>
-                            <p>Project yang kamu tambahkan dari dashboard admin akan muncul di sini.</p>
                         </div>
-                    <?php endif; ?>
-                </div>
+                    <?php endwhile; ?>
+                <?php else: ?>
+                    <div class="empty-projects">
+                        <h3>Belum ada project</h3>
+                        <p>Tambahkan project melalui dashboard admin agar tampil di sini.</p>
+                    </div>
+                <?php endif; ?>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- CONTACT -->
-        <section class="contact-section reveal" id="contact">
-            <div class="container">
-                <div class="section-header">
-                    <span class="section-badge">Kontak</span>
-                    <h2 class="section-title">Hubungi Aku</h2>
-                    <p class="section-subtitle">
-                        Kalau kamu ingin kerja sama, diskusi project, atau sekadar ngobrol soal ide kreatif.
-                    </p>
-                </div>
-
-                <div class="contact-grid">
-                    <div class="contact-card">
-                        <span class="contact-label">Email</span>
-                        <h3>Email</h3>
-                        <p>yourmail@email.com</p>
-                    </div>
-
-                    <div class="contact-card">
-                        <span class="contact-label">Instagram</span>
-                        <h3>Instagram</h3>
-                        <p>@usernamekamu</p>
-                    </div>
-
-                    <div class="contact-card">
-                        <span class="contact-label">WhatsApp</span>
-                        <h3>WhatsApp</h3>
-                        <p>08xxxxxxxxxx</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-    </main>
-
-    <!-- FOOTER -->
-    <footer class="footer">
+    <!-- Contact -->
+    <section class="section contact-section" id="contact">
         <div class="container">
-            <div class="footer-top">
-                <div class="footer-brand">
-                    <a href="#" class="footer-logo">Fly<span>Frynn</span></a>
-                    <p>
-                        Personal portfolio yang menampilkan project, karya digital,
-                        dan perjalanan kreatif dalam membangun identitas visual serta web modern.
-                    </p>
-                </div>
-
-                <div class="footer-links">
-                    <h3>Navigasi</h3>
-                    <ul>
-                        <li><a href="#home">Home</a></li>
-                        <li><a href="#about">Tentang</a></li>
-                        <li><a href="#projects">Project</a></li>
-                        <li><a href="#contact">Kontak</a></li>
-                    </ul>
-                </div>
-
-                <div class="footer-contact">
-                    <h3>Kontak</h3>
-                    <ul>
-                        <li><a href="mailto:yourmail@email.com">yourmail@email.com</a></li>
-                        <li><a href="#">Instagram</a></li>
-                        <li><a href="#">WhatsApp</a></li>
-                    </ul>
-                </div>
+            <div class="section-heading">
+                <span class="section-badge">Get In Touch</span>
+                <h2 class="section-title">Contact Me</h2>
+                <p class="section-subtitle">
+                    Jika ingin berkomunikasi, berdiskusi, atau sekadar menyapa, kamu bisa menghubungi saya lewat beberapa platform berikut.
+                </p>
             </div>
 
-            <div class="footer-bottom">
-                <div class="footer-bottom-content">
-                    <p>© <?php echo date('Y'); ?> FlyFrynn. All rights reserved.</p>
-                    <p class="footer-made">Built with passion & creativity.</p>
+            <div class="contact-grid">
+                <div class="contact-card">
+                    <span class="contact-label">Social</span>
+                    <h3>Instagram</h3>
+                    <p>@frynn</p>
                 </div>
+
+                <div class="contact-card">
+                    <span class="contact-label">Mail</span>
+                    <h3>Email</h3>
+                    <p>frynn@example.com</p>
+                </div>
+
+                <div class="contact-card">
+                    <span class="contact-label">Direct</span>
+                    <h3>WhatsApp</h3>
+                    <p>08xxxxxxxxxx</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container footer-content">
+            <div class="footer-left">
+                <h3>Frynn<span>.</span></h3>
+                <p>Creative portfolio yang dibangun untuk menampilkan karya, proses belajar, dan perkembangan skill digital.</p>
+            </div>
+
+            <div class="footer-right">
+                <p>© <?php echo date("Y"); ?> Frynn Portfolio</p>
+                <p class="footer-note">Built with HTML, CSS, PHP, and creativity.</p>
             </div>
         </div>
     </footer>
 
-    <!-- JS -->
     <script>
         const menuToggle = document.getElementById("menuToggle");
-        const mobileMenu = document.getElementById("mobileMenu");
+        const navLinks = document.getElementById("navLinks");
 
         menuToggle.addEventListener("click", () => {
-            mobileMenu.classList.toggle("show");
+            navLinks.classList.toggle("show");
         });
-
-        const reveals = document.querySelectorAll(".reveal");
-
-        function revealOnScroll() {
-            reveals.forEach((el) => {
-                const windowHeight = window.innerHeight;
-                const elementTop = el.getBoundingClientRect().top;
-                const revealPoint = 100;
-
-                if (elementTop < windowHeight - revealPoint) {
-                    el.classList.add("show-reveal");
-                }
-            });
-        }
-
-        window.addEventListener("scroll", revealOnScroll);
-        revealOnScroll();
     </script>
 
 </body>

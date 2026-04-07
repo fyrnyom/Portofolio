@@ -7,28 +7,17 @@ if (!isset($_SESSION['admin'])) {
     exit;
 }
 
-$error = '';
-
 if (isset($_POST['submit'])) {
     $judul = mysqli_real_escape_string($conn, $_POST['judul']);
     $deskripsi = mysqli_real_escape_string($conn, $_POST['deskripsi']);
     $teknologi = mysqli_real_escape_string($conn, $_POST['teknologi']);
 
-    $gambar = '';
+    $gambar = $_FILES['gambar']['name'];
+    $tmp = $_FILES['gambar']['tmp_name'];
 
-    if (isset($_FILES['gambar']) && $_FILES['gambar']['error'] === 0) {
-        $gambar = time() . '_' . basename($_FILES['gambar']['name']);
-        $tmp = $_FILES['gambar']['tmp_name'];
-        $target = "../uploads/" . $gambar;
+    if (!empty($gambar)) {
+        move_uploaded_file($tmp, "../img/" . $gambar);
 
-        if (!move_uploaded_file($tmp, $target)) {
-            $error = "Gagal upload gambar.";
-        }
-    } else {
-        $error = "Silakan upload gambar project.";
-    }
-
-    if (empty($error)) {
         $insert = mysqli_query($conn, "INSERT INTO projects (judul, deskripsi, gambar, teknologi)
             VALUES ('$judul', '$deskripsi', '$gambar', '$teknologi')");
 
@@ -36,8 +25,10 @@ if (isset($_POST['submit'])) {
             echo "<script>alert('Project berhasil ditambahkan!'); window.location='dashboard.php';</script>";
             exit;
         } else {
-            $error = "Gagal menyimpan project ke database.";
+            $error = "Gagal menambahkan project.";
         }
+    } else {
+        $error = "Gambar project wajib diupload.";
     }
 }
 ?>
@@ -52,9 +43,7 @@ if (isset($_POST['submit'])) {
 </head>
 
 <body>
-
     <div class="admin-wrapper">
-
         <aside class="sidebar">
             <div class="sidebar-top">
                 <h2>Frynn<span>Admin</span></h2>
@@ -73,15 +62,15 @@ if (isset($_POST['submit'])) {
             <header class="topbar">
                 <div>
                     <h1>Tambah Project</h1>
-                    <p>Tambahkan project baru ke portfolio kamu.</p>
+                    <p>Masukkan project baru agar tampil di halaman portfolio utama.</p>
                 </div>
                 <a href="dashboard.php" class="topbar-btn">← Kembali Dashboard</a>
             </header>
 
             <section class="form-section">
                 <div class="form-header">
-                    <h2>Form Tambah Project</h2>
-                    <p>Isi data project dengan lengkap.</p>
+                    <h2>Form Project Baru</h2>
+                    <p>Isi data project dengan lengkap dan rapi.</p>
                 </div>
 
                 <?php if (!empty($error)): ?>
@@ -90,35 +79,34 @@ if (isset($_POST['submit'])) {
 
                 <form action="" method="POST" enctype="multipart/form-data" class="project-form">
                     <div class="form-group">
-                        <label for="judul">Judul Project</label>
-                        <input type="text" name="judul" id="judul" required>
+                        <label>Judul Project</label>
+                        <input type="text" name="judul" required>
                     </div>
 
                     <div class="form-group">
-                        <label for="deskripsi">Deskripsi</label>
-                        <textarea name="deskripsi" id="deskripsi" rows="6" required></textarea>
+                        <label>Deskripsi</label>
+                        <textarea name="deskripsi" rows="6" required></textarea>
                     </div>
 
                     <div class="form-group">
-                        <label for="teknologi">Teknologi</label>
-                        <input type="text" name="teknologi" id="teknologi" required>
-                        <small>Pisahkan beberapa teknologi dengan koma.</small>
+                        <label>Teknologi</label>
+                        <input type="text" name="teknologi" required>
+                        <small>Pisahkan dengan koma.</small>
                     </div>
 
                     <div class="form-group">
-                        <label for="gambar">Upload Gambar</label>
-                        <input type="file" name="gambar" id="gambar" accept="image/*" required>
+                        <label>Upload Gambar</label>
+                        <input type="file" name="gambar" accept="image/*" required>
                     </div>
 
                     <div class="form-actions">
-                        <button type="submit" name="submit" class="submit-btn">🚀 Simpan Project</button>
+                        <button type="submit" name="submit" class="submit-btn">+ Simpan Project</button>
                         <a href="dashboard.php" class="cancel-btn">Batal</a>
                     </div>
                 </form>
             </section>
         </main>
     </div>
-
 </body>
 
 </html>

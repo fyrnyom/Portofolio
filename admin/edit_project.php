@@ -7,7 +7,7 @@ if (!isset($_SESSION['admin'])) {
     exit;
 }
 
-if (!isset($_GET['id']) || empty($_GET['id'])) {
+if (!isset($_GET['id'])) {
     header("Location: dashboard.php");
     exit;
 }
@@ -26,19 +26,14 @@ if (isset($_POST['submit'])) {
     $deskripsi = mysqli_real_escape_string($conn, $_POST['deskripsi']);
     $teknologi = mysqli_real_escape_string($conn, $_POST['teknologi']);
 
-    $gambarUpdate = $data['gambar'];
+    $gambarBaru = $_FILES['gambar']['name'];
+    $tmp = $_FILES['gambar']['tmp_name'];
 
-    if (isset($_FILES['gambar']) && $_FILES['gambar']['error'] === 0) {
-        $gambarBaru = time() . '_' . basename($_FILES['gambar']['name']);
-        $tmp = $_FILES['gambar']['tmp_name'];
-        $target = "../uploads/" . $gambarBaru;
-
-        if (move_uploaded_file($tmp, $target)) {
-            if (!empty($data['gambar']) && file_exists("../uploads/" . $data['gambar'])) {
-                unlink("../uploads/" . $data['gambar']);
-            }
-            $gambarUpdate = $gambarBaru;
-        }
+    if (!empty($gambarBaru)) {
+        move_uploaded_file($tmp, "../img/" . $gambarBaru);
+        $gambarUpdate = $gambarBaru;
+    } else {
+        $gambarUpdate = $data['gambar'];
     }
 
     $update = mysqli_query($conn, "UPDATE projects SET
@@ -68,9 +63,7 @@ if (isset($_POST['submit'])) {
 </head>
 
 <body>
-
     <div class="admin-wrapper">
-
         <aside class="sidebar">
             <div class="sidebar-top">
                 <h2>Frynn<span>Admin</span></h2>
@@ -86,11 +79,10 @@ if (isset($_POST['submit'])) {
         </aside>
 
         <main class="admin-main">
-
             <header class="topbar">
                 <div>
                     <h1>Edit Project</h1>
-                    <p>Perbarui informasi project agar portfolio kamu tetap rapi dan up to date.</p>
+                    <p>Perbarui informasi project agar portfolio tetap rapi.</p>
                 </div>
                 <a href="dashboard.php" class="topbar-btn">← Kembali Dashboard</a>
             </header>
@@ -107,42 +99,38 @@ if (isset($_POST['submit'])) {
 
                 <div class="current-image-box">
                     <p class="current-image-label">Gambar Saat Ini</p>
-                    <img src="../uploads/<?php echo htmlspecialchars($data['gambar']); ?>" alt="<?php echo htmlspecialchars($data['judul']); ?>" class="current-project-image">
+                    <img src="../img/<?php echo htmlspecialchars($data['gambar']); ?>" class="current-project-image">
                 </div>
 
                 <form action="" method="POST" enctype="multipart/form-data" class="project-form">
                     <div class="form-group">
-                        <label for="judul">Judul Project</label>
-                        <input type="text" name="judul" id="judul" value="<?php echo htmlspecialchars($data['judul']); ?>" required>
+                        <label>Judul Project</label>
+                        <input type="text" name="judul" value="<?php echo htmlspecialchars($data['judul']); ?>" required>
                     </div>
 
                     <div class="form-group">
-                        <label for="deskripsi">Deskripsi</label>
-                        <textarea name="deskripsi" id="deskripsi" rows="6" required><?php echo htmlspecialchars($data['deskripsi']); ?></textarea>
+                        <label>Deskripsi</label>
+                        <textarea name="deskripsi" rows="6" required><?php echo htmlspecialchars($data['deskripsi']); ?></textarea>
                     </div>
 
                     <div class="form-group">
-                        <label for="teknologi">Teknologi</label>
-                        <input type="text" name="teknologi" id="teknologi" value="<?php echo htmlspecialchars($data['teknologi']); ?>" required>
-                        <small>Pisahkan beberapa teknologi dengan koma.</small>
+                        <label>Teknologi</label>
+                        <input type="text" name="teknologi" value="<?php echo htmlspecialchars($data['teknologi']); ?>" required>
                     </div>
 
                     <div class="form-group">
-                        <label for="gambar">Ganti Gambar (Opsional)</label>
-                        <input type="file" name="gambar" id="gambar" accept="image/*">
-                        <small>Kosongkan jika tidak ingin mengganti gambar project.</small>
+                        <label>Ganti Gambar (Opsional)</label>
+                        <input type="file" name="gambar" accept="image/*">
                     </div>
 
                     <div class="form-actions">
-                        <button type="submit" name="submit" class="submit-btn">💾 Update Project</button>
+                        <button type="submit" name="submit" class="submit-btn">Update Project</button>
                         <a href="dashboard.php" class="cancel-btn">Batal</a>
                     </div>
                 </form>
             </section>
-
         </main>
     </div>
-
 </body>
 
 </html>
